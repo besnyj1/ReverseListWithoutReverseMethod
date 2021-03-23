@@ -1,0 +1,67 @@
+import random
+
+# Reverse a list without using .reverse
+
+# Brute method:
+# Reversing manually the idxs
+
+list_to_be_reversed = [1, 2, 3, 4, 5]
+
+print(list_to_be_reversed)
+
+list_copy = list_to_be_reversed.copy()
+
+# manually changing the value from a copied list
+list_to_be_reversed[0] = list_copy[4]
+list_to_be_reversed[4] = list_copy[0]
+list_to_be_reversed[1] = list_copy[3]
+list_to_be_reversed[3] = list_copy[1]
+
+# Prints the manually reversed list
+print("Manually reversed")
+print(list_to_be_reversed)
+
+# But, lets say your list has a thousand values. This is the automated way:
+# List created to be reversed. Although I used the list(range()) with uniform function to represent a list,
+# you can input any sort of list with any sort of variable.
+list_to_be_reversed2 = list(range(0, int(random.uniform(1, 60))))
+print("Automated part")
+print(list_to_be_reversed2)
+
+
+# This is the function that will reverse it. If you need to reverse lists from
+# other classes, input 'self' inside the () and change the 'list_to_be_reversed2'
+# by 'self'. Then, just pass the list in the method. For ex: reverse_list(list).
+def reverse_list():
+    # Because the automated part needs to know the list's length, I created a variable
+    # that contains such information. But, because the last number in the length is not
+    # inclusive, we need to subtract 1.
+    length = len(list_to_be_reversed2) - 1
+
+    # Here, I create a copy of the main list so we don't have problems
+    # if we need to manipulate the main list somewhere else.
+    reversed_list = list_to_be_reversed2.copy()
+
+    # The part below is the most important: What it does is it creates a loop.
+    # Inside the loop, the 1st idx is replaced by the nth index. Then,
+    # the variable "i" adds and subtracts, making the next loop replace the
+    # '0 + 1' index for the 'nth - 1' index. It happens until the variable reaches
+    # the value of the length, finishing all the replacements.
+    i = 0
+    while i < length:
+        reversed_list[0 + i] = list_to_be_reversed2.copy()[length - i]
+        i = i + 1
+
+        # Because we removed 1 unit from the length to avoid bugs,
+        # the loop will not replace the last idx. So, we need to
+        # create this single line to take care of that and have all
+        # values replaced.
+        reversed_list[length] = list_to_be_reversed2.copy()[0]
+
+        # Return the reversed list.
+    return reversed_list.copy()
+
+
+print('list after the function:')
+
+print(reverse_list())
